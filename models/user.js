@@ -47,4 +47,20 @@ const userSchema = new mongoose.Schema({
     },
 });
 
+userSchema.method = {
+    securePassword: function (plainPassword) {
+        // check if empty password
+        if (!encry_password) return "";
+
+        try {
+            return crypto
+                .createHmac("sha256", this.salt)
+                .update(plainPassword)
+                .digest("hex");
+        } catch (err) {
+            return "";
+        }
+    },
+};
+
 module.exports = mongoose.model("User", userSchema);
