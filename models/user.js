@@ -8,50 +8,55 @@ const crypto = require("crypto");
 const uuidv1 = require("uuid/v1");
 
 // user-schema
-const userSchema = new mongoose.Schema({
-    f_name: {
-        type: String,
-        required: true,
-        maxlength: 32,
-        trim: true,
-    },
-    l_name: {
-        type: String,
-        maxlength: 32,
-        trim: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true,
-    },
+const userSchema = new mongoose.Schema(
+    {
+        f_name: {
+            type: String,
+            required: true,
+            maxlength: 32,
+            trim: true,
+        },
+        l_name: {
+            type: String,
+            maxlength: 32,
+            trim: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            trim: true,
+            unique: true,
+        },
 
-    userInfo: {
-        type: String,
-        trim: true,
-    },
+        userInfo: {
+            type: String,
+            trim: true,
+        },
 
-    // TODO : come back here
-    encry_password: {
-        type: String,
-        required: true,
-    },
+        // TODO : come back here
+        encry_password: {
+            type: String,
+            required: true,
+        },
 
-    salt: String,
+        salt: String,
 
-    // defining roles/privileges
-    role: {
-        type: Number,
-        default: 0,
-    },
+        // defining roles/privileges
+        role: {
+            type: Number,
+            default: 0,
+        },
 
-    // user purchases
-    purchases: {
-        type: Array,
-        default: [],
+        // user purchases
+        purchases: {
+            type: Array,
+            default: [],
+        },
     },
-});
+    {
+        timestamps: true,
+    }
+);
 
 // creating virtuals
 userSchema
@@ -67,7 +72,7 @@ userSchema
 
 userSchema.method = {
     authenticate: function (plainPassword) {
-        return this.securePassword(plainPassword) === this.encry_password();
+        return this.securePassword(plainPassword) === this.encry_password;
     },
 
     securePassword: function (plainPassword) {
