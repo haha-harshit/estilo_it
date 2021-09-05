@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 // import express
 const express = require("express");
 
@@ -5,7 +7,7 @@ const express = require("express");
 const app = express();
 
 // defining port
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 // database connectivity
 const db = require("./config/mongoose");
