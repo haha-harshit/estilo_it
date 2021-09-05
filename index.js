@@ -7,6 +7,9 @@ const app = express();
 // defining port
 const port = 8000;
 
+// database connectivity
+const db = require("./config/mongoose");
+
 // main page
 app.get("/", (req, res) => {
     return res.send("Home page");
